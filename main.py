@@ -8,13 +8,14 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
-    pass
+    with open("data.txt", "a") as data_file:
+        data_file.write(f"{website_input.get()} | {email_input.get()} | {password_input.get()}\n")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Password Manager")
-window.config(padx=20, pady=20, bg="white")
+window.config(padx=50, pady=50, bg="white")
 
 canvas = Canvas(width=200, height=200, bg="white", highlightthickness=0)
 logo = PhotoImage(file="logo.png")
@@ -34,11 +35,11 @@ password_label.grid(row=3, column=0)
 website_input = Entry(width=35)
 website_input.config(bg="white")
 website_input.grid(row=1, column=1, columnspan=2, sticky="EW")
-# website_input.focus()
+website_input.focus()
 email_input = Entry(width=35)
 email_input.config(bg="white")
 email_input.grid(row=2, column=1, columnspan=2, sticky="EW")
-# email_input.insert(0, "5bLbF@example.com")
+email_input.insert(0, "yourEmail@example.com")
 password_input = Entry(width=21)
 password_input.config(bg="white")
 password_input.grid(row=3, column=1, sticky="EW")
