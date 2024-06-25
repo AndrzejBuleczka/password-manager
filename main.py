@@ -22,6 +22,11 @@ def search():
             messagebox.showinfo(title="Error", message=f"No details for {website} exists.)")
 
 
+# ---------------------------- SET EMAIL ------------------------------- #
+def set_email():
+    email = email_input.get()
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 # Password Generator Project
 letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
@@ -118,6 +123,10 @@ password_input.grid(row=3, column=1, sticky="EW")
 search_button = Button(text="Search", highlightthickness=0, command=search)
 search_button.config(bg="white")
 search_button.grid(row=1, column=2, sticky="EW")
+
+set_email_button = Button(text="Set Email", highlightthickness=0, command=set_email)
+set_email_button.config(bg="white")
+set_email_button.grid(row=2, column=2, sticky="EW")
 
 password_generator_button = Button(text="Generate Password", highlightthickness=0, command=generate_password)
 password_generator_button.config(bg="white")
