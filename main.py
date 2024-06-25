@@ -4,9 +4,29 @@ from random import choice, randint, shuffle
 import pyperclip
 import json
 
+
+# ---------------------------- SEARCH PASSWORD ------------------------------- #
+def search():
+    website = website_input.get()
+    try:
+        with open("data.json") as data_file:
+            data = json.load(data_file)
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No Data File Found.")
+    else:
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for {website} exists.)")
+
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 # Password Generator Project
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+           'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+           'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
@@ -44,7 +64,8 @@ def save():
         messagebox.showinfo(title="Oops", message="Please make sure you haven't left any fields empty!")
         return
     else:
-        is_ok = messagebox.askokcancel(title=website, message=f"These are the details entered: \nEmail: {email} \nPassword: {password}\nIs it ok to save?")
+        is_ok = messagebox.askokcancel(title=website,
+                                       message=f"These are the details entered: \nEmail: {email} \nPassword: {password}\nIs it ok to save?")
         if is_ok:
             try:
                 with open("data.json", "r") as data_file:
@@ -94,6 +115,9 @@ password_input = Entry(width=21)
 password_input.config(bg="white")
 password_input.grid(row=3, column=1, sticky="EW")
 
+search_button = Button(text="Search", highlightthickness=0, command=search)
+search_button.config(bg="white")
+search_button.grid(row=1, column=2, sticky="EW")
 
 password_generator_button = Button(text="Generate Password", highlightthickness=0, command=generate_password)
 password_generator_button.config(bg="white")
@@ -102,6 +126,5 @@ password_generator_button.grid(row=3, column=2, sticky="EW")
 add_button = Button(text="Add", width=36, highlightthickness=0, command=save)
 add_button.config(bg="white")
 add_button.grid(row=4, column=1, columnspan=2, sticky="EW")
-
 
 window.mainloop()
